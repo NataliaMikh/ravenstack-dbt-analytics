@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: neon_raw
+    description: "Raw data replicated from Neon PostgreSQL database via Fivetran."
+    database: ravenstack-saas-analytics
+    schema: ravenstack
+    tables:
+      - name: accounts
+        description: "Table containing information about customer accounts, including tier and signup details."
+        columns:
+          - name: account_id
+            description: "Primary key for the account."
+          - name: referral_source
+            description: "The channel through which the customer found the platform."
+
+      - name: ravenstack_churn_events
+        description: "churn events records."
+
+      - name: ravenstack_feature_usage
+        description: "Event logs tracking how users interact with specific features within the app."
+
+      - name: ravenstack_subscriptions
+        description: "Subscription records including plan details and financial metrics like MRR and ARR."
+
+      - name: ravenstack_support_tickets
+        description: "Event logs tracking upport_tickets."
+
+      
