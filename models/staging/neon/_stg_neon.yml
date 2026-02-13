@@ -1,0 +1,35 @@
+models:
+  - name: stg_neon__accounts
+    columns:
+      - name: account_id
+        data_tests:
+          - unique
+          - not_null 
+  
+  - name: stg_neon__churn
+    columns:
+      - name: churn_event_id
+        data_tests:
+          - unique
+          - not_null 
+  
+  - name: stg_neon__feature_usage
+    columns:
+      - name: usage_id
+        data_tests:
+          - unique
+          - not_null 
+  
+  - name: stg_neon__subscriptions
+    columns:
+      - name: subscription_id
+        data_tests:
+          - unique
+          - not_null 
+  
+  - name: stg_neon__support_tickets
+    columns:
+      - name: ticket_id
+        data_tests:
+          - unique
+          - not_null 

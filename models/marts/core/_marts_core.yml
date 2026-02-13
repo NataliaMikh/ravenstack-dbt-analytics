@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Consolidated view of customers with their subscription status."
+    columns:
+      - name: account_id
+        data_tests:
+          - unique
+          - not_null
+
+      - name: customer_status
+        description: "Classification of customer activity."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Active', 'Inactive/Churned']
