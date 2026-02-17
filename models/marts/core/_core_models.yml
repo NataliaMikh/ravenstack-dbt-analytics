@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: dim_accounts
+    description: "merges account profile details with current subscription revenue (MRR) 
+      to enable segmentation by industry, country, and acquisition source."
+    columns:
+      - name: account_id
+        description: "Primary key for the account."
+        tests:
+          - unique
+          - not_null
+
+      - name: mrr
+        description: "Total Monthly Recurring Revenue for this account."
+

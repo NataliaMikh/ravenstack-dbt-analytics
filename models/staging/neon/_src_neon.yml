@@ -2,11 +2,10 @@ version: 2
 
 sources:
   - name: neon_raw
-    description: "Raw data replicated from Neon PostgreSQL database via Fivetran."
     database: ravenstack-saas-analytics
     schema: ravenstack
     tables:
-      - name: accounts
+      - name: accounts      
         description: "Table containing information about customer accounts, including tier and signup details."
         columns:
           - name: account_id
