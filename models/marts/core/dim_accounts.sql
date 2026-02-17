@@ -3,13 +3,12 @@ with accounts as (
 ),
 
 subscriptions as (
-    select 
+    select
         account_id,
         sum(mrr_amount) as total_mrr,
-        sum(arr_amount) as total_arr,
         max(plan_tier) as current_plan_tier
     from {{ ref('stg_neon__subscriptions') }}
-    where churn_flag is false  -- only active subscribers
+    where churn_flag is false
     group by 1
 ),
 
@@ -23,7 +22,6 @@ final as (
         a.referral_source,
         coalesce(s.current_plan_tier, 'Free') as current_plan_tier,
         coalesce(s.total_mrr, 0) as mrr,
-        -- status
         case 
             when s.total_mrr > 0 then 'Active'
             else 'Inactive/Trial'
