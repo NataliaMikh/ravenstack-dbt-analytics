@@ -12,7 +12,6 @@ monthly_revenue as (
         date_trunc(usage_date, month) as activity_month,
         sum(usage_count) as total_interactions, -- Engagement metric
         -- We'll assume for this exercise that active usage correlates with active MRR
-        -- In a real scenario, you'd join with a monthly_invoice table here
         count(distinct usage_id) * 10 as estimated_monthly_revenue 
     from {{ ref('int_feature_usage_by_account') }}
     group by 1, 2

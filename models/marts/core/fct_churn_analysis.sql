@@ -1,9 +1,18 @@
 with accounts as (
-    select * from {{ ref('stg_neon__accounts') }}
+    select 
+        account_id,
+        account_name,
+        industry,
+        plan_tier 
+    from {{ ref('stg_neon__accounts') }}
 ),
 
-churn as (
-    select * from {{ ref('stg_neon__churn') }}
+churn_summarized as (
+    select 
+        account_id,
+        max(churn_date) as latest_churn_date
+    from {{ ref('stg_neon__churn') }}
+    group by 1
 ),
 
 usage_stats as (
@@ -17,25 +26,22 @@ usage_stats as (
 
 final as (
     select
-        -- Using explicit aliases to avoid "struct" confusion
         acc.account_id,
         acc.account_name,
         acc.industry,
-        acc.plan_tier, -- Adjusted to match the field name in your stg_accounts
+        acc.plan_tier,
         
-        -- Status Logic
         case 
-            when c.churn_date is not null then 'Churned'
+            when c.latest_churn_date is not null then 'Churned'
             else 'Active'
         end as customer_status,
         
-        -- Aggregated Metrics
         coalesce(u.total_usage_events, 0) as total_usage_events,
         coalesce(u.total_errors, 0) as total_errors,
-        c.churn_date
+        c.latest_churn_date as churn_date
 
     from accounts as acc
-    left join churn as c on acc.account_id = c.account_id
+    left join churn_summarized as c on acc.account_id = c.account_id
     left join usage_stats as u on acc.account_id = u.account_id
 )
 
