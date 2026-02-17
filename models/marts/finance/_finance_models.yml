@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: fct_mrr_cohorts
+    description: "Monthly cohort analysis tracking customer and revenue retention over time."
+    columns:
+      - name: cohort_month
+        description: "The month the customer signed up (The 'Cohort ID')."
+      - name: months_since_signup
+        description: "Months elapsed since signup (0 = first month)."
+        tests:
+          - not_null
+      - name: customer_retention_rate
+        description: "Percentage of the original cohort still active."
