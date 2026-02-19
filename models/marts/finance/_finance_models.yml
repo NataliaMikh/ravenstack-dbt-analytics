@@ -6,9 +6,26 @@ models:
     columns:
       - name: cohort_month
         description: "The month the customer signed up (The 'Cohort ID')."
+
       - name: months_since_signup
         description: "Months elapsed since signup (0 = first month)."
         tests:
           - not_null
+
       - name: customer_retention_rate
         description: "Percentage of the original cohort still active."
+
+  - name: fct_mrr_kpis
+    description: "Monthly SaaS KPIs including Total MRR, Active Customers and ARPU."
+    columns:
+      - name: month
+        description: "Month of revenue aggregation."
+
+      - name: total_mrr
+        description: "Total Monthly Recurring Revenue for the month."
+
+      - name: active_customers
+        description: "Number of active paying accounts in the month."
+
+      - name: arpu
+        description: "Average Revenue Per User (Total MRR / Active Customers)."
